@@ -1,0 +1,49 @@
+name: Build Lucky Draw APK
+
+# يشتغل تلقائيًا مع أي رفع (push) للكود، أو يدويًا من تبويب Actions.
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    name: Build release APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java (مطلوب لبناء Android)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Scaffold native android/ios folders (لأن المشروع مصدره ملفات Dart فقط)
+        run: flutter create . --project-name lucky_draw --org com.example.luckydraw --platforms android,ios
+
+      - name: Get packages
+        run: flutter pub get
+
+      - name: Generate app icon from assets/icon/app_icon.png
+        run: flutter pub run flutter_launcher_icons
+
+      - name: Analyze (اختياري - لا يوقف البناء لو فيه تحذيرات بسيطة)
+        run: flutter analyze || true
+
+      - name: Build release APK
+        run: flutter build apk --release
+
+      # الملف الناتج يظهر في تبويب Actions -> اختر آخر تشغيل -> Artifacts بالأسفل
+      - name: Upload APK as downloadable artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: lucky-draw-release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 30
