@@ -68,9 +68,11 @@ export function Header() {
           </ul>
         </nav>
         <div className="flex items-center gap-2">
-          <ButtonLink href="/contact" className="hidden h-10 min-h-10 px-4 text-sm md:inline-flex">
-            Start a Project
-          </ButtonLink>
+          <div className="hidden md:block">
+            <ButtonLink href="/contact" className="h-10 min-h-10 px-4 text-sm">
+              Start a Project
+            </ButtonLink>
+          </div>
           <MobileMenu pathname={pathname} />
         </div>
       </Container>

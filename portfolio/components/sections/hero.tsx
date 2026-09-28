@@ -1,10 +1,18 @@
 import Image from "next/image";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import type { CSSProperties } from "react";
 import { site } from "@/data/site";
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { AvailabilityBadge } from "@/components/ui/tag";
-import heroImage from "@/public/images/hero-studio.jpg";
+import { BrowserFrame, PhoneFrame } from "@/components/project/frames";
+import { OrbitDesktop } from "@/components/project/previews/orbit";
+import { FlowfinDashboard } from "@/components/project/previews/flowfin";
+
+/** Higgsfield hero image (see HIGGSFIELD_ASSETS.md). Falls back to a CSS backdrop if the file is absent. */
+const HERO_SRC = "/images/hero-studio.jpg";
+const hasHeroImage = existsSync(join(process.cwd(), "public", HERO_SRC));
 
 const capabilities = ["Websites", "Web applications", "Mobile apps", "Ecommerce", "SaaS dashboards"];
 
@@ -14,14 +22,18 @@ export function Hero() {
   return (
     <section className="relative isolate flex min-h-[100svh] flex-col overflow-hidden pt-16 md:pt-[4.5rem]">
       <div className="enter-fade absolute inset-0 -z-10" style={delay(100)}>
-        <Image
-          src={heroImage}
-          alt=""
-          priority
-          placeholder="blur"
-          sizes="100vw"
-          className="size-full object-cover object-[72%_center] opacity-60 md:opacity-100"
-        />
+        {hasHeroImage ? (
+          <Image
+            src={HERO_SRC}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[72%_center] opacity-60 md:opacity-100"
+          />
+        ) : (
+          <HeroBackdrop />
+        )}
         <div aria-hidden className="absolute inset-0 bg-gradient-to-r from-bg via-bg/80 to-transparent md:via-bg/40" />
         <div aria-hidden className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-bg to-transparent" />
       </div>
@@ -71,5 +83,28 @@ export function Hero() {
         </Container>
       </div>
     </section>
+  );
+}
+
+/**
+ * Backdrop used until the Higgsfield hero photograph is added: two of the
+ * portfolio's own coded interfaces, set quietly into the dark background.
+ */
+function HeroBackdrop() {
+  return (
+    <div aria-hidden className="absolute inset-0">
+      <div className="hairline-grid absolute inset-0 opacity-40 [mask-image:radial-gradient(ellipse_70%_60%_at_75%_45%,black,transparent)]" />
+      <div className="absolute right-[-10%] top-1/2 aspect-square w-[70vw] max-w-[900px] -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(242,107,58,0.08),transparent_60%)]" />
+      <div className="absolute right-[-4%] top-1/2 hidden w-[46%] max-w-[760px] -translate-y-[55%] opacity-80 [mask-image:linear-gradient(to_right,transparent,black_30%)] lg:block">
+        <BrowserFrame url="app.orbit.team">
+          <OrbitDesktop />
+        </BrowserFrame>
+      </div>
+      <div className="absolute right-[6%] top-[58%] hidden w-[13%] max-w-[210px] -translate-y-1/2 lg:block">
+        <PhoneFrame>
+          <FlowfinDashboard />
+        </PhoneFrame>
+      </div>
+    </div>
   );
 }

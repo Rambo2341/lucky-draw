@@ -37,7 +37,7 @@ components/
   contact/            Contact form
 data/                 site.ts, projects.ts, services.ts, skills.ts  ← edit these
 lib/                  Validation, metadata helpers, utils
-public/               Images, OpenGraph image
+public/               Images (hero)
 styles/globals.css    Design tokens (colours, fonts) and base styles
 scripts/              Screenshot + image helper scripts
 screenshots/          Portfolio screenshots (desktop + mobile)
@@ -83,7 +83,7 @@ values.
 
 | Variable | Required | Description |
 | --- | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | Recommended | Production URL, e.g. `https://yourname.dev`. Used for canonical URLs, sitemap and OpenGraph. |
+| `NEXT_PUBLIC_SITE_URL` | Recommended | Production URL, e.g. `https://yourname.dev`. Used for canonical URLs, sitemap and OpenGraph. On Vercel the production domain is used automatically if this is unset. |
 | `RESEND_API_KEY` | For contact email | API key from [Resend](https://resend.com). |
 | `CONTACT_TO_EMAIL` | For contact email | The inbox that receives enquiries. |
 | `CONTACT_FROM_EMAIL` | Optional | Sender, e.g. `Portfolio <hello@yourname.dev>`. Must be on a domain verified in Resend. |
@@ -145,10 +145,12 @@ appear only when the URL is filled in — there are never dead links.
 - **Coded previews:** the default project visuals are real React components in
   `components/project/previews/`. They scale with their container, so no
   screenshots are needed to get started.
-- **Hero image:** replace `public/images/hero-studio.jpg` (≥ 2400px wide, dark,
-  subject on the right). See `HIGGSFIELD_ASSETS.md`.
-- **Share image:** replace `public/og.jpg` (1200×630). You can regenerate it from
-  the hero with `node scripts/optimize-images.mjs`.
+- **Hero image:** put `public/images/hero-studio.jpg` in place (≥ 2400px wide,
+  dark, subject on the right) — `node scripts/optimize-images.mjs <source>`
+  resizes and compresses it. If the file is absent, the hero shows a fallback
+  built from the coded project interfaces. See `HIGGSFIELD_ASSETS.md`.
+- **Share image:** generated in code by `app/opengraph-image.tsx`; edit the text
+  or colours there.
 - **Favicon:** edit `app/icon.svg`.
 
 ## Skills and services
@@ -209,7 +211,7 @@ To regenerate them after changes:
 
 ```bash
 npm run build && npm run start      # in one terminal
-node scripts/screenshots.mjs        # in another (requires Playwright)
+npm run screenshots                 # in another (uses Playwright + Chromium)
 ```
 
 ## Higgsfield-generated assets

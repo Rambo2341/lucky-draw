@@ -48,8 +48,11 @@ await desktop.screenshot({ path: `${out}/05-nova-commerce.png`, fullPage: true }
 
 await desktop.goto(`${base}/work/flowfin`, { waitUntil: "networkidle" });
 await settle(desktop);
-const screens = desktop.locator("section", { hasText: "Mobile screens" }).first();
-await screens.screenshot({ path: `${out}/06-flowfin-mobile.png` });
+await desktop.locator("h2", { hasText: "Mobile screens" }).evaluate((el) => {
+  window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - 140);
+});
+await desktop.waitForTimeout(400);
+await desktop.screenshot({ path: `${out}/06-flowfin-mobile.png` });
 
 await desktop.goto(`${base}/contact`, { waitUntil: "networkidle" });
 await settle(desktop);

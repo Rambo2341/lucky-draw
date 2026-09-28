@@ -14,9 +14,13 @@ export const site = {
     "Web & Mobile Developer building modern websites, web applications and cross-platform mobile apps with Next.js, React, TypeScript and React Native.",
   /**
    * Production URL, used for canonical links, sitemap and OpenGraph.
-   * Set NEXT_PUBLIC_SITE_URL in your environment (e.g. on Vercel).
+   * Set NEXT_PUBLIC_SITE_URL in your environment; on Vercel the production
+   * domain is used automatically when it isn't set.
    */
-  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, ""),
+  url: (
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "http://localhost:3000")
+  ).replace(/\/$/, ""),
   locale: "en_US",
   availability: {
     available: true,
