@@ -9,8 +9,8 @@
 export type SiteImage = { src: string; alt: { en: string; ar: string }; width: number; height: number };
 
 const CDN = "https://d8j0ntlcm91z4.cloudfront.net/user_3JsS0m289mPfxRAJebie6eqrga6";
-const wide = (file: string, en: string, ar: string): SiteImage => ({ src: `${CDN}/${file}`, alt: { en, ar }, width: 1536, height: 1024 });
-const tall = (file: string, en: string, ar: string): SiteImage => ({ src: `${CDN}/${file}`, alt: { en, ar }, width: 1024, height: 1280 });
+const wide = (file: string, en: string, ar: string): SiteImage => ({ src: `${CDN}/${file}`, alt: { en, ar }, width: 2048, height: 1360 });
+const tall = (file: string, en: string, ar: string): SiteImage => ({ src: `${CDN}/${file}`, alt: { en, ar }, width: 1792, height: 2240 });
 
 export const images = {
   riyadhVilla: wide("hf_20260928_145739_be754447-b703-4a6c-b55c-fef13fb9be5a.png", "Limestone villa with a shaded loggia and date palms", "فيلا حجرية بواجهة مظللة ونخيل"),
