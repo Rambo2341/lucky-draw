@@ -6,7 +6,19 @@ import { getDict, href, tr, type Locale } from "@/lib/i18n";
 import { cn } from "@/lib/cn";
 
 /** A calling card: monogram, name, desk, languages and (demo) contact lines. */
-export function AgentCard({ agent: a, locale, compact, className }: { agent: Agent; locale: Locale; compact?: boolean; className?: string }) {
+export function AgentCard({
+  agent: a,
+  locale,
+  compact,
+  notch = "var(--color-paper)",
+  className,
+}: {
+  agent: Agent;
+  locale: Locale;
+  compact?: boolean;
+  notch?: string;
+  className?: string;
+}) {
   const t = getDict(locale);
   const count = byAgent(a.id).length;
   return (
@@ -23,7 +35,7 @@ export function AgentCard({ agent: a, locale, compact, className }: { agent: Age
       </p>
       {!compact && (
         <>
-          <div className="perforation my-5 -mx-6" style={{ ["--notch" as string]: "var(--color-paper)" }} />
+          <div className="perforation my-5 -mx-6" style={{ ["--notch" as string]: notch }} />
           <ul className="space-y-1 text-[0.9375rem]">
             <li>
               <a href={`tel:${a.phone.replace(/\s/g, "")}`} className="inline-flex min-h-10 items-center gap-2 tabular-nums hover:underline" dir="ltr">

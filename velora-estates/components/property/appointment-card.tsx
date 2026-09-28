@@ -11,7 +11,8 @@ export function AppointmentCard({ request: r, locale, fresh }: { request: Viewin
   const p = getProperty(r.slug);
   const agent = p ? getAgent(p.agent) : undefined;
   return (
-    <div className="stock relative grid overflow-hidden sm:grid-cols-[1fr_auto]" style={fresh ? { animation: "rise 0.7s var(--ease-out)" } : undefined}>
+    <div className="@container">
+    <div className="stock relative grid overflow-hidden @lg:grid-cols-[1fr_auto]" style={fresh ? { animation: "rise 0.7s var(--ease-out)" } : undefined}>
       <div className="p-6">
         <div className="flex items-center gap-3">
           <Monogram className="size-9" />
@@ -19,7 +20,7 @@ export function AppointmentCard({ request: r, locale, fresh }: { request: Viewin
         </div>
         <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-4 text-[0.9375rem]">
           <div className="col-span-2">
-            <dt className="label">{t.nav.properties}</dt>
+            <dt className="label">{t.viewing.cardProperty}</dt>
             <dd className="mt-1 font-medium">
               {p ? tr(p.name, locale) : r.slug}{" "}
               <span className="serial text-ink-3" dir="ltr">
@@ -49,7 +50,7 @@ export function AppointmentCard({ request: r, locale, fresh }: { request: Viewin
         <p className="mt-6 text-[0.8125rem] text-ink-3">{t.viewing.cardNote}</p>
       </div>
       {/* Tear-off stub with the reference, separated by a vertical perforation. */}
-      <div className="relative flex flex-col items-center justify-center gap-2 border-t-[1.5px] border-dashed border-rule bg-paper px-8 py-6 sm:border-s-[1.5px] sm:border-t-0">
+      <div className="relative flex flex-col items-center justify-center gap-2 border-t-[1.5px] border-dashed border-rule bg-paper px-8 py-6 @lg:border-s-[1.5px] @lg:border-t-0">
         <span className="label">{t.viewing.cardRef}</span>
         <span className="serial text-[1.05rem] text-ink" dir="ltr">
           {r.ref}
@@ -61,6 +62,7 @@ export function AppointmentCard({ request: r, locale, fresh }: { request: Viewin
           {locale === "ar" ? "طلب مسجّل" : "Requested"}
         </span>
       </div>
+    </div>
     </div>
   );
 }

@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import { ArrowRight } from "lucide-react";
 import { cities } from "@/data/people-places";
-import { propertyTypes, purposes, type Purpose } from "@/data/properties";
+import { propertyTypes, type Purpose } from "@/data/properties";
 import { budgetOptions, toQuery } from "@/lib/filters";
 import { getDict, href, tr, type Locale } from "@/lib/i18n";
 import { usdShort } from "@/lib/format";
@@ -65,18 +65,15 @@ export function RequestSlip({ locale }: { locale: Locale }) {
         </label>
         <select
           id="slip-purpose"
-          className="blank ms-2"
+          className="blank ms-[0.3em]"
           value={purpose}
           onChange={(e) => {
             setPurpose(e.target.value as Purpose);
             setMax("");
           }}
         >
-          {Object.entries(purposes).map(([id, l]) => (
-            <option key={id} value={id}>
-              {tr(l, locale)}
-            </option>
-          ))}
+          <option value="sale">{t.home.slipBuy}</option>
+          <option value="rent">{t.home.slipRent}</option>
         </select>
         {t.home.slipUpTo}{" "}
         <label className="sr-only" htmlFor="slip-budget">

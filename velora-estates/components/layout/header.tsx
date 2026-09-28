@@ -59,11 +59,11 @@ export function Header({ locale }: { locale: Locale }) {
   const isActive = (h: string) => pathname === h || pathname.startsWith(`${h}/`);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-rule bg-stock/95 backdrop-blur-sm">
-      <div className="mx-auto flex h-16 max-w-[1360px] items-center gap-6 px-4 sm:px-6 lg:h-[4.5rem] lg:px-10">
+    <header className="sticky top-0 z-40 border-b border-rule bg-stock">
+      <div className="mx-auto flex h-16 max-w-[1360px] items-center gap-2 px-4 sm:gap-6 sm:px-6 lg:h-[4.5rem] lg:px-10">
         <Link href={href(locale)} className="flex min-h-11 items-center gap-2.5" aria-label={`${t.brand} — home`}>
           <Monogram className="size-8" />
-          <span className="display text-[1.15rem] tracking-[0.18em] rtl:tracking-normal">{locale === "ar" ? t.brand : "VELORA"}</span>
+          <span className="display text-[1.15rem] tracking-[0.1em] sm:tracking-[0.18em] rtl:tracking-normal">{locale === "ar" ? t.brand : "VELORA"}</span>
         </Link>
 
         <nav aria-label="Main" className="ms-6 hidden lg:block">
@@ -97,7 +97,7 @@ export function Header({ locale }: { locale: Locale }) {
           <Link
             href={href(locale, "/favorites")}
             aria-current={isActive(href(locale, "/favorites")) ? "page" : undefined}
-            className="group inline-flex min-h-11 items-center gap-2 border border-rule px-3 text-[0.9375rem] hover:border-ink"
+            className="group inline-flex min-h-11 items-center gap-2 border border-rule px-2 sm:px-3 text-[0.9375rem] hover:border-ink"
           >
             <HolderIcon />
             <span className="hidden sm:inline">{t.nav.setAside}</span>

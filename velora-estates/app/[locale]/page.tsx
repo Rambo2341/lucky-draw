@@ -24,8 +24,8 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
     <>
       {/* First viewport: the request slip beside the dealt cards. */}
       <section className="border-b border-rule">
-        <div className="mx-auto grid max-w-[1360px] lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="px-4 pb-12 pt-10 sm:px-6 lg:px-10 lg:pb-16 lg:pt-16">
+        <div className="grid lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="px-4 pb-12 pt-10 sm:px-6 lg:pb-16 lg:pe-10 lg:ps-[max(2.5rem,calc((100vw-1360px)/2+2.5rem))] lg:pt-16">
             <h1 className="display reveal max-w-[12ch] text-[3.25rem] sm:text-[4.5rem] xl:text-[5.5rem] rtl:max-w-[14ch] rtl:text-[2.9rem] rtl:sm:text-[3.9rem] rtl:xl:text-[4.6rem]">
               {t.home.title}
             </h1>

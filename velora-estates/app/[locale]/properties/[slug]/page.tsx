@@ -153,7 +153,7 @@ export default async function PropertyPage({ params }: PageProps<"/[locale]/prop
           {agent && (
             <section aria-label={t.detail.agent}>
               <h2 className="label mb-3">{t.detail.agent}</h2>
-              <AgentCard agent={agent} locale={locale} />
+              <AgentCard agent={agent} locale={locale} notch="var(--color-stock)" />
             </section>
           )}
         </aside>

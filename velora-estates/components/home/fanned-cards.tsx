@@ -50,11 +50,13 @@ export function FannedCards({ items, locale }: { items: Property[]; locale: Loca
                       {tr(p.name, locale)}
                     </Link>
                   ) : (
-                    <span className="display text-[1.2rem]" aria-hidden>
+                    <span className="display invisible text-[1.2rem]" aria-hidden>
                       {tr(p.name, locale)}
                     </span>
                   )}
-                  <span className="text-[0.8125rem] font-semibold tabular-nums">{priceLabel(p, locale, t.card.perYear)}</span>
+                  <span className={`text-[0.8125rem] font-semibold tabular-nums ${top ? "" : "invisible"}`} aria-hidden={!top}>
+                    {priceLabel(p, locale, t.card.perYear)}
+                  </span>
                 </div>
               </div>
             </div>
