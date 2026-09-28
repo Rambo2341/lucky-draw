@@ -1,0 +1,39 @@
+# Higgsfield Assets
+
+This portfolio uses **one** AI-generated asset. Everything else (project visuals,
+device frames, backgrounds, icons) is built in code or CSS, which keeps the site
+light and avoids spending credits on things CSS can do.
+
+## Asset plan (decided before generating)
+
+| Need | Decision | Reason |
+| --- | --- | --- |
+| Hero visual | **Generate 1 image** (21:9) | An editorial, photographic hero is hard to fake with CSS and sets the premium tone in the first second. |
+| Hero video | Not generated | A still image loads faster, keeps LCP low and avoids distracting motion. Generating both would waste credits. |
+| Web project covers | Not generated | Real, working interfaces are better proof of skill than generated mockups. Covers are coded UI previews inside CSS device frames. |
+| Mobile (Flowfin) presentation | Not generated | The coded phone screens in CSS phone frames already read clearly; a generated phone scene would add weight without adding proof. |
+| Decorative shapes, grids, gradients | Not generated | Done in CSS. |
+| OpenGraph image | Derived from the hero | Cropped/resized from the hero image — no extra generation. |
+
+## Generated assets
+
+### `public/images/hero-studio.jpg`
+
+- **Purpose:** Home page hero background.
+- **Where used:** `components/sections/hero.tsx` (full-bleed behind the headline, faded into the page background).
+- **Generation type:** Text-to-image (Higgsfield, GPT Image 2.5 model, high quality, 2K).
+- **Aspect ratio:** 21:9 (web-optimised to 2400px wide JPEG).
+- **Prompt summary:** Ultra-wide premium editorial studio still life on a near-black seamless sweep. On the right third, a minimal sculptural arrangement of matte graphite slabs, frosted translucent panels and a smartphone-proportioned anodised aluminium slab — abstract physical stand-ins for screens and devices. Blank surfaces (no text, UI, code or logos), soft directional key light from the upper left, subtle warm orange rim light matching the site accent, left 60% left empty as negative space for the headline. Explicitly excluded: people, laptops, desks, holograms, neon, gradients.
+
+### `public/og.jpg` (derived)
+
+- **Purpose:** OpenGraph / Twitter share image.
+- **Where used:** `app/layout.tsx` metadata.
+- **Generation type:** Derived from `hero-studio.jpg` (crop + resize to 1200×630 with `sharp`) — not a separate generation.
+- **Aspect ratio:** 1.91:1.
+
+## Replacing the hero image
+
+Drop a new image at `public/images/hero-studio.jpg` (ideally ≥ 2400px wide, dark
+background, subject on the right, empty space on the left). Next.js generates the
+responsive sizes and blur placeholder automatically.
