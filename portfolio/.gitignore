@@ -23,3 +23,7 @@ npm-debug.log*
 
 # vercel
 .vercel
+
+# local contact-request store (development)
+/.data/
+/demos/velora/.impeccable/review/

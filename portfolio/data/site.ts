@@ -5,20 +5,26 @@
  * Any link left as an empty string is hidden automatically.
  */
 
+import type { L } from "@/lib/i18n";
+
 export const site = {
   /** Your name as shown in the logo, footer and metadata. */
   name: "Zenox",
 
   /** Main professional role. */
-  role: "Web & Mobile Developer",
+  role: { en: "Web & Mobile Developer", ar: "مطوّر مواقع وتطبيقات جوال" } as L,
 
   /** Short headline shown in hero sections and metadata. */
-  tagline:
-    "I design and develop premium websites and mobile applications for iPhone and Android.",
+  tagline: {
+    en: "I design and develop premium websites and mobile applications for iPhone and Android.",
+    ar: "أصمّم وأطوّر مواقع إلكترونية وتطبيقات جوال فاخرة لآيفون وأندرويد.",
+  } as L,
 
   /** SEO / metadata description. */
-  description:
-    "Zenox is a Web & Mobile Developer creating responsive websites, modern web applications, and cross-platform iPhone and Android apps using Next.js, React, TypeScript, and React Native.",
+  description: {
+    en: "Zenox is a Web & Mobile Developer creating responsive websites, modern web applications, and cross-platform iPhone and Android apps using Next.js, React, TypeScript, and React Native.",
+    ar: "Zenox مطوّر مواقع وتطبيقات جوال، يبني مواقع متجاوبة وتطبيقات ويب حديثة وتطبيقات لآيفون وأندرويد باستخدام Next.js وReact وTypeScript وReact Native.",
+  } as L,
 
   /**
    * Production URL used for canonical links, sitemap and OpenGraph.
@@ -36,8 +42,8 @@ export const site = {
 
   /** Freelance availability status. */
   availability: {
+    /** Shows the "Available for freelance projects" badge. */
     available: true,
-    label: "Available for freelance projects",
   },
 
   /**
@@ -91,24 +97,10 @@ export function getSocialLinks(): SocialLink[] {
   return links;
 }
 
-/**
- * Main navigation items.
- */
+/** Main navigation. Labels are translated in lib/i18n.ts. */
 export const navItems = [
-  {
-    label: "Work",
-    href: "/work",
-  },
-  {
-    label: "Services",
-    href: "/services",
-  },
-  {
-    label: "About",
-    href: "/about",
-  },
-  {
-    label: "Contact",
-    href: "/contact",
-  },
+  { key: "work", href: "/work" },
+  { key: "services", href: "/services" },
+  { key: "about", href: "/about" },
+  { key: "contact", href: "/contact" },
 ] as const;

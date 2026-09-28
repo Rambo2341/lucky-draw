@@ -109,10 +109,11 @@ Paste this at the end of proposals (replace the domain once deployed):
 Relevant work (personal/concept projects with full case studies):
 
 • Portfolio — https://your-domain.com
-• Velora Estates (real-estate website) — https://your-domain.com/work/velora-estates
-• Nova Commerce (ecommerce) — https://your-domain.com/work/nova-commerce
-• Flowfin (mobile finance app) — https://your-domain.com/work/flowfin
-• Orbit (SaaS dashboard) — https://your-domain.com/work/orbit
+• Velora Estates — live, bilingual real-estate site — https://your-domain.com/demos/velora/en
+  (case study: https://your-domain.com/en/work/velora-estates)
+• Nova Commerce (ecommerce) — https://your-domain.com/en/work/nova-commerce
+• Flowfin (mobile finance app) — https://your-domain.com/en/work/flowfin
+• Orbit (SaaS dashboard) — https://your-domain.com/en/work/orbit
 ```
 
 Tip: in each proposal, link only the one or two projects closest to the job.

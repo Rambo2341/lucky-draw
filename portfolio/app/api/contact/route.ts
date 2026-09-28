@@ -1,17 +1,16 @@
 import { NextResponse } from "next/server";
 import { normalizeContact, validateContact } from "@/lib/contact";
+import { getStore, newSubmission } from "@/lib/submissions";
 
 /**
  * Contact form endpoint.
  *
- * Email delivery uses the Resend HTTP API (https://resend.com) — no SDK needed.
- * Configure these environment variables to enable it (see README):
- *   RESEND_API_KEY      API key from Resend
- *   CONTACT_TO_EMAIL    Inbox that receives enquiries
- *   CONTACT_FROM_EMAIL  Verified sender, e.g. "Portfolio <hello@yourdomain.com>"
+ * 1. Validates (name, email, phone, project type, budget, message — all required).
+ * 2. Saves the request so it appears in the admin panel (see lib/submissions.ts).
+ * 3. Optionally emails a copy through Resend when RESEND_API_KEY and
+ *    CONTACT_TO_EMAIL are set.
  *
- * Without them the endpoint still validates input and responds with 503
- * `not_configured`, and the form offers a direct email fallback instead.
+ * Responds 503 `not_configured` only when neither storage nor email is set up.
  */
 export async function POST(request: Request) {
   let body: unknown;
@@ -32,41 +31,59 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "validation", errors }, { status: 422 });
   }
 
+  const locale = (body as Record<string, unknown>).locale === "ar" ? "ar" : "en";
+  const submission = newSubmission(input, locale);
+
+  const store = getStore();
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.CONTACT_TO_EMAIL;
-  const from = process.env.CONTACT_FROM_EMAIL ?? "Portfolio <onboarding@resend.dev>";
-
-  if (!apiKey || !to) {
+  if (!store && !(apiKey && to)) {
     return NextResponse.json({ error: "not_configured" }, { status: 503 });
   }
 
-  const text = [
-    `Name: ${input.name.trim()}`,
-    `Email: ${input.email.trim()}`,
-    `Project type: ${input.projectType}`,
-    `Budget: ${input.budget}`,
-    "",
-    input.message.trim(),
-  ].join("\n");
-
-  try {
-    const res = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-      body: JSON.stringify({
-        from,
-        to: [to],
-        reply_to: input.email.trim(),
-        subject: `New project enquiry — ${input.projectType} (${input.budget})`,
-        text,
-      }),
-    });
-    if (!res.ok) {
-      return NextResponse.json({ error: "send_failed" }, { status: 502 });
+  let saved = false;
+  if (store) {
+    try {
+      await store.create(submission);
+      saved = true;
+    } catch (e) {
+      console.error("Could not save contact request", e);
     }
-  } catch {
-    return NextResponse.json({ error: "send_failed" }, { status: 502 });
   }
 
+  let emailed = false;
+  if (apiKey && to) {
+    const from = process.env.CONTACT_FROM_EMAIL ?? "Portfolio <onboarding@resend.dev>";
+    const text = [
+      `Name: ${submission.name}`,
+      `Email: ${submission.email}`,
+      `Phone: ${submission.phone}`,
+      `Project type: ${submission.projectType}`,
+      `Budget: ${submission.budget}`,
+      `Language: ${submission.locale}`,
+      "",
+      submission.message,
+    ].join("\n");
+    try {
+      const res = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          from,
+          to: [to],
+          reply_to: submission.email,
+          subject: `New project request — ${submission.projectType} (${submission.budget})`,
+          text,
+        }),
+      });
+      emailed = res.ok;
+    } catch {
+      emailed = false;
+    }
+  }
+
+  if (!saved && !emailed) {
+    return NextResponse.json({ error: "send_failed" }, { status: 502 });
+  }
   return NextResponse.json({ ok: true });
 }

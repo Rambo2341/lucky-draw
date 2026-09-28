@@ -5,18 +5,19 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { navItems, site, getSocialLinks } from "@/data/site";
+import { getDict, href, type Locale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { AvailabilityBadge } from "@/components/ui/tag";
 
-const links = [{ label: "Home", href: "/" }, ...navItems];
-
-export function MobileMenu({ pathname }: { pathname: string }) {
+export function MobileMenu({ locale, pathname }: { locale: Locale; pathname: string }) {
+  const t = getDict(locale);
   const [open, setOpen] = useState(false);
   const [lastPath, setLastPath] = useState(pathname);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
   const socials = getSocialLinks();
+  const links = [{ label: t.nav.home, href: href(locale) }, ...navItems.map((i) => ({ label: t.nav[i.key], href: href(locale, i.href) }))];
 
   // Close when the route changes.
   if (pathname !== lastPath) {
@@ -72,7 +73,7 @@ export function MobileMenu({ pathname }: { pathname: string }) {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-controls="mobile-menu"
-        aria-label={open ? "Close menu" : "Open menu"}
+        aria-label={open ? t.nav.closeMenu : t.nav.openMenu}
         className="relative grid size-11 place-items-center rounded-full border border-line bg-bg-2 text-fg"
       >
         <span aria-hidden className="relative block h-3 w-4">
@@ -90,16 +91,17 @@ export function MobileMenu({ pathname }: { pathname: string }) {
             ref={panelRef}
             role="dialog"
             aria-modal="true"
-            aria-label="Site menu"
+            aria-label={t.nav.menu}
+            dir={locale === "ar" ? "rtl" : "ltr"}
             initial={reduce ? { opacity: 0 } : { opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
             className="fixed inset-0 z-40 flex flex-col overflow-y-auto bg-bg px-5 pb-8 pt-24 sm:px-8"
           >
-            <nav aria-label="Mobile">
+            <nav aria-label={t.nav.menu}>
               <ul className="border-t border-line">
                 {links.map((item, i) => {
-                  const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+                  const active = item.href === href(locale) ? pathname === item.href : pathname.startsWith(item.href);
                   return (
                     <motion.li
                       key={item.href}
@@ -126,14 +128,14 @@ export function MobileMenu({ pathname }: { pathname: string }) {
             </nav>
             <div className="mt-auto space-y-6 pt-10">
               <Link
-                href="/contact"
+                href={href(locale, "/contact")}
                 onClick={() => setOpen(false)}
                 className="flex min-h-12 w-full items-center justify-center rounded-full bg-fg text-[0.9375rem] font-medium text-bg"
               >
-                Start a Project
+                {t.nav.start}
               </Link>
               <div className="flex flex-wrap items-center justify-between gap-4">
-                {site.availability.available && <AvailabilityBadge label={site.availability.label} />}
+                {site.availability.available && <AvailabilityBadge label={t.availability} />}
                 {socials.length > 0 && (
                   <ul className="flex gap-4 text-sm text-muted">
                     {socials.map((s) => (

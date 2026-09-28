@@ -23,18 +23,20 @@ type ButtonLinkProps = {
   variant?: Variant;
   external?: boolean;
   arrow?: boolean;
+  /** Screen-reader note for external links, in the page language. */
+  newTabLabel?: string;
   children: ReactNode;
 } & Omit<ComponentPropsWithoutRef<"a">, "href">;
 
 /** Renders an internal <Link> or an external <a> with safe defaults. */
-export function ButtonLink({ href, variant = "primary", external, arrow, className, children, ...rest }: ButtonLinkProps) {
+export function ButtonLink({ href, variant = "primary", external, arrow, newTabLabel = "(opens in a new tab)", className, children, ...rest }: ButtonLinkProps) {
   const content = (
     <>
       <span>{children}</span>
       {arrow && (
         <ArrowUpRight
           aria-hidden
-          className="size-4 transition-transform duration-300 ease-out-expo group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5"
+          className="size-4 transition-transform duration-300 ease-out-expo group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5 rtl:-scale-x-100 rtl:group-hover/btn:-translate-x-0.5"
         />
       )}
     </>
@@ -44,7 +46,7 @@ export function ButtonLink({ href, variant = "primary", external, arrow, classNa
     return (
       <a href={href} target="_blank" rel="noopener noreferrer" className={buttonClass(variant, className)} {...rest}>
         {content}
-        <span className="sr-only"> (opens in a new tab)</span>
+        <span className="sr-only"> {newTabLabel}</span>
       </a>
     );
   }

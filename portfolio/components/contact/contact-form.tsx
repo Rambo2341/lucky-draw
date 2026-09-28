@@ -10,18 +10,20 @@ import {
   type ContactErrors,
   type ContactField,
   type ContactInput,
+  type ErrorCode,
 } from "@/lib/contact";
 import { site } from "@/data/site";
+import { getDict, type Locale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { buttonClass } from "@/components/ui/button";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
-const empty: ContactInput = { name: "", email: "", projectType: "", budget: "", message: "" };
+const empty: ContactInput = { name: "", email: "", phone: "", projectType: "", budget: "", message: "" };
+const fieldOrder: ContactField[] = ["name", "email", "phone", "projectType", "budget", "message"];
 
-const fieldOrder: ContactField[] = ["name", "email", "projectType", "budget", "message"];
-
-export function ContactForm() {
+export function ContactForm({ locale }: { locale: Locale }) {
+  const t = getDict(locale).contact;
   const id = useId();
   const formRef = useRef<HTMLFormElement>(null);
   const [values, setValues] = useState<ContactInput>(empty);
@@ -31,6 +33,11 @@ export function ContactForm() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const fid = (f: string) => `${id}-${f}`;
+  const message = (code?: ErrorCode) => {
+    if (!code) return undefined;
+    const m = t.errors[code];
+    return typeof m === "function" ? m(limits.messageMin) : m;
+  };
 
   function update<K extends ContactField>(field: K, value: string) {
     const next = { ...values, [field]: value };
@@ -45,8 +52,7 @@ export function ContactForm() {
     setErrors(found);
     const first = fieldOrder.find((f) => found[f]);
     if (first) {
-      const el = formRef.current?.querySelector<HTMLElement>(`[data-field="${first}"]`);
-      el?.focus();
+      formRef.current?.querySelector<HTMLElement>(`[data-field="${first}"]`)?.focus();
       return;
     }
 
@@ -57,7 +63,7 @@ export function ContactForm() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...values, company: honeypot }),
+        body: JSON.stringify({ ...values, locale, company: honeypot }),
       });
       if (res.ok) {
         setStatus("success");
@@ -66,14 +72,10 @@ export function ContactForm() {
       const data = (await res.json().catch(() => ({}))) as { error?: string; errors?: ContactErrors };
       if (data.errors) setErrors(data.errors);
       setStatus("error");
-      setErrorMessage(
-        data.error === "not_configured" && process.env.NODE_ENV === "development"
-          ? "Email delivery isn’t configured yet. Add RESEND_API_KEY and CONTACT_TO_EMAIL (see README)."
-          : "Sorry — your message couldn’t be sent right now. Please try again in a moment.",
-      );
+      setErrorMessage(data.error === "not_configured" && process.env.NODE_ENV === "development" ? t.notConfigured : t.failed);
     } catch {
       setStatus("error");
-      setErrorMessage("Network error — please check your connection and try again.");
+      setErrorMessage(t.network);
     }
   }
 
@@ -83,10 +85,8 @@ export function ContactForm() {
         <span className="grid size-12 place-items-center rounded-full bg-accent text-bg">
           <Check aria-hidden className="size-5" />
         </span>
-        <h2 className="mt-6 text-2xl font-medium tracking-[-0.03em] md:text-3xl">Thanks, {values.name.trim().split(" ")[0]}.</h2>
-        <p className="mt-3 max-w-md leading-relaxed text-muted">
-          Your message has been sent. I’ll read it carefully and reply to {values.email.trim()} as soon as possible.
-        </p>
+        <h2 className="mt-6 text-2xl font-medium tracking-[-0.03em] md:text-3xl">{t.thanks(values.name.trim().split(" ")[0])}</h2>
+        <p className="mt-3 max-w-md leading-relaxed text-muted">{t.sent(values.email.trim())}</p>
         <button
           type="button"
           onClick={() => {
@@ -97,7 +97,7 @@ export function ContactForm() {
           }}
           className={buttonClass("secondary", "mt-8")}
         >
-          Send another message
+          {t.another}
         </button>
       </div>
     );
@@ -110,57 +110,74 @@ export function ContactForm() {
   return (
     <form ref={formRef} onSubmit={onSubmit} noValidate className="relative space-y-8" aria-describedby={`${id}-required`}>
       <p id={`${id}-required`} className="text-sm text-subtle">
-        All fields are required.
+        {t.required}
       </p>
 
       <div className="grid gap-8 sm:grid-cols-2">
         <TextField
           id={fid("name")}
           field="name"
-          label="Name"
+          label={t.name}
           autoComplete="name"
           value={values.name}
-          error={errors.name}
+          error={message(errors.name)}
           maxLength={limits.name}
           onChange={(v) => update("name", v)}
         />
         <TextField
           id={fid("email")}
           field="email"
-          label="Email"
+          label={t.email}
           type="email"
           autoComplete="email"
           inputMode="email"
+          ltr
           value={values.email}
-          error={errors.email}
+          error={message(errors.email)}
           maxLength={limits.email}
           onChange={(v) => update("email", v)}
         />
       </div>
 
+      <TextField
+        id={fid("phone")}
+        field="phone"
+        label={t.phone}
+        type="tel"
+        autoComplete="tel"
+        inputMode="tel"
+        ltr
+        placeholder="+966 5X XXX XXXX"
+        hint={t.phoneHint}
+        value={values.phone}
+        error={message(errors.phone)}
+        maxLength={limits.phone}
+        onChange={(v) => update("phone", v)}
+      />
+
       <ChoiceField
         id={fid("projectType")}
         field="projectType"
-        legend="Project type"
-        options={projectTypes}
+        legend={t.projectType}
+        options={projectTypes.map((o) => [o, t.projectTypes[o]])}
         value={values.projectType}
-        error={errors.projectType}
+        error={message(errors.projectType)}
         onChange={(v) => update("projectType", v)}
       />
 
       <ChoiceField
         id={fid("budget")}
         field="budget"
-        legend="Estimated budget"
-        options={budgetRanges}
+        legend={t.budget}
+        options={budgetRanges.map((o) => [o, t.budgets[o]])}
         value={values.budget}
-        error={errors.budget}
+        error={message(errors.budget)}
         onChange={(v) => update("budget", v)}
       />
 
       <div>
         <label htmlFor={fid("message")} className="block text-sm font-medium">
-          Message
+          {t.message}
         </label>
         <textarea
           id={fid("message")}
@@ -171,20 +188,20 @@ export function ContactForm() {
           onChange={(e) => update("message", e.target.value)}
           aria-invalid={Boolean(errors.message)}
           aria-describedby={errors.message ? `${fid("message")}-error` : `${fid("message")}-hint`}
-          placeholder="What are you building, and what would you like help with?"
+          placeholder={t.messagePh}
           className={cn(inputClass, "resize-y py-3 leading-relaxed", errors.message && errorBorder)}
         />
         {errors.message ? (
-          <FieldError id={`${fid("message")}-error`}>{errors.message}</FieldError>
+          <FieldError id={`${fid("message")}-error`}>{message(errors.message)!}</FieldError>
         ) : (
           <p id={`${fid("message")}-hint`} className="mt-2 text-xs text-subtle">
-            A few sentences about goals, timeline and any links are perfect.
+            {t.messageHint}
           </p>
         )}
       </div>
 
       {/* Honeypot for bots — hidden from people and assistive tech. */}
-      <div aria-hidden className="absolute -left-[9999px] h-px w-px overflow-hidden">
+      <div aria-hidden className="sr-only">
         <label>
           Company
           <input type="text" name="company" tabIndex={-1} autoComplete="off" />
@@ -198,9 +215,9 @@ export function ContactForm() {
             {mailto && (
               <>
                 {" "}
-                You can also{" "}
+                {t.orEmail}{" "}
                 <a href={mailto} className="underline underline-offset-4 hover:text-fg">
-                  email me directly
+                  {t.emailDirect}
                 </a>
                 .
               </>
@@ -213,12 +230,12 @@ export function ContactForm() {
         {status === "submitting" ? (
           <>
             <LoaderCircle aria-hidden className="size-4 animate-spin" />
-            Sending…
+            {t.sending}
           </>
         ) : (
           <>
-            Send message
-            <ArrowRight aria-hidden className="size-4" />
+            {t.send}
+            <ArrowRight aria-hidden className="size-4 rtl:rotate-180" />
           </>
         )}
       </button>
@@ -244,14 +261,18 @@ type TextFieldProps = {
   label: string;
   value: string;
   error?: string;
+  hint?: string;
   type?: string;
   autoComplete?: string;
-  inputMode?: "email" | "text";
+  inputMode?: "email" | "text" | "tel";
+  placeholder?: string;
+  ltr?: boolean;
   maxLength?: number;
   onChange: (v: string) => void;
 };
 
-function TextField({ id, field, label, value, error, type = "text", autoComplete, inputMode, maxLength, onChange }: TextFieldProps) {
+function TextField({ id, field, label, value, error, hint, type = "text", autoComplete, inputMode, placeholder, ltr, maxLength, onChange }: TextFieldProps) {
+  const describedBy = error ? `${id}-error` : hint ? `${id}-hint` : undefined;
   return (
     <div>
       <label htmlFor={id} className="block text-sm font-medium">
@@ -264,13 +285,21 @@ function TextField({ id, field, label, value, error, type = "text", autoComplete
         value={value}
         autoComplete={autoComplete}
         inputMode={inputMode}
+        placeholder={placeholder}
+        dir={ltr ? "ltr" : undefined}
         maxLength={maxLength}
         onChange={(e) => onChange(e.target.value)}
         aria-invalid={Boolean(error)}
-        aria-describedby={error ? `${id}-error` : undefined}
-        className={cn(inputClass, "h-12", error && errorBorder)}
+        aria-describedby={describedBy}
+        className={cn(inputClass, "h-12", ltr && "text-start", error && errorBorder)}
       />
-      {error && <FieldError id={`${id}-error`}>{error}</FieldError>}
+      {error ? (
+        <FieldError id={`${id}-error`}>{error}</FieldError>
+      ) : hint ? (
+        <p id={`${id}-hint`} className="mt-2 text-xs text-subtle">
+          {hint}
+        </p>
+      ) : null}
     </div>
   );
 }
@@ -279,7 +308,7 @@ type ChoiceFieldProps = {
   id: string;
   field: ContactField;
   legend: string;
-  options: readonly string[];
+  options: [value: string, label: string][];
   value: string;
   error?: string;
   onChange: (v: string) => void;
@@ -290,7 +319,7 @@ function ChoiceField({ id, field, legend, options, value, error, onChange }: Cho
     <fieldset aria-describedby={error ? `${id}-error` : undefined} aria-invalid={Boolean(error)}>
       <legend className="text-sm font-medium">{legend}</legend>
       <div className="mt-3 flex flex-wrap gap-2">
-        {options.map((opt, i) => {
+        {options.map(([opt, label], i) => {
           const checked = value === opt;
           return (
             <label
@@ -310,7 +339,7 @@ function ChoiceField({ id, field, legend, options, value, error, onChange }: Cho
                 data-field={i === 0 ? field : undefined}
                 className="sr-only"
               />
-              {opt}
+              {label}
             </label>
           );
         })}

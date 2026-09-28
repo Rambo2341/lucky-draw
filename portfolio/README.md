@@ -1,235 +1,164 @@
-# Portfolio — Web & Mobile Developer
+# Zenox — Web & Mobile Developer portfolio
 
-A professional developer portfolio built with **Next.js (App Router)**, **React**,
-**TypeScript**, **Tailwind CSS** and **Framer Motion**. It presents services,
-four documented concept projects with full case studies, an about page and a
-validated contact form — designed to convince a potential client within
-30 seconds that you can build polished websites and apps.
+One Next.js project that contains three things:
 
-Everything that changes often (projects, skills, services, name, links) is data,
-not markup, so you can update the site without touching components.
+1. **The portfolio** in English (default) and Arabic — `/en`, `/ar`.
+2. **Live project demos** hosted inside it — VELORA ESTATES at `/demos/velora/en`
+   and `/demos/velora/ar`. Clicking the project in the portfolio opens it directly.
+3. **A private admin panel** at `/admin` that only works on a separate domain you
+   choose, behind a password. Every request sent from the contact form appears there.
+
+Built with **Next.js 16 (App Router)**, **React 19**, **TypeScript**, **Tailwind CSS 4**
+and **Framer Motion**. Everything that changes often (projects, services, skills, your
+name and links, all text) is data, not markup.
 
 ---
 
-## Pages
+## Routes
 
-| Route | Purpose |
+| Route | What it is |
 | --- | --- |
-| `/` | Hero, selected work, services, about + skills, call to action |
-| `/work` | All projects |
-| `/work/[slug]` | Case study for each project (statically generated) |
-| `/services` | Services in detail + working process |
-| `/about` | Short bio, principles, skills |
-| `/contact` | Contact form with validation |
-| `/sitemap.xml`, `/robots.txt` | SEO |
+| `/` | Redirects to `/en` |
+| `/en`, `/ar` | Home |
+| `/{en,ar}/work` | All projects |
+| `/{en,ar}/work/[slug]` | Case study |
+| `/{en,ar}/services`, `/about`, `/contact` | Services, About, Contact (phone and email required) |
+| `/demos/velora/{en,ar}/…` | VELORA ESTATES — the full working real-estate site |
+| `/admin` | Private admin panel (only on `ADMIN_HOST`) |
+| `/api/contact` | Saves contact requests (and optionally emails them) |
+| `/sitemap.xml`, `/robots.txt` | SEO (admin and API are disallowed) |
 
 ## Folder structure
 
 ```
-app/                  Routes, metadata, sitemap, robots, API route
-  api/contact/        Contact form endpoint (email via Resend)
-components/
-  ui/                 Buttons, container, tags, reveal animation, section header
-  layout/             Header, mobile menu, footer
-  sections/           Page sections (hero, work grid, services, skills, CTA…)
-  project/            Project cards, device frames, case-study blocks
-    previews/         Coded interface previews for each project
-  contact/            Contact form
-data/                 site.ts, projects.ts, services.ts, skills.ts  ← edit these
-lib/                  Validation, metadata helpers, utils
-public/               Images (hero)
-styles/globals.css    Design tokens (colours, fonts) and base styles
-scripts/              Screenshot + image helper scripts
-screenshots/          Portfolio screenshots (desktop + mobile)
+app/
+  (site)/[locale]/      Portfolio pages (en / ar), each with its own <html lang dir>
+  (velora)/demos/velora/[locale]/   Velora demo pages
+  (admin)/admin/        Admin panel (login, list, request detail, server actions)
+  api/contact/          Contact endpoint
+proxy.ts                Locks /admin to ADMIN_HOST and requires a session
+components/             Portfolio components (ui, layout, sections, project, contact)
+data/                   site.ts, projects.ts, services.ts, skills.ts   ← edit these
+lib/
+  i18n.ts               All interface text in English and Arabic
+  contact.ts            Contact validation (shared by the form and the API)
+  submissions.ts        Where requests are stored (Upstash Redis / local file)
+  admin-auth.ts         Password check and signed session cookie
+demos/velora/           Velora's components, data, styles and design docs
+styles/globals.css      Portfolio design tokens
+scripts/                Screenshots and image helpers
 ```
 
 ---
 
-## Requirements
+## Run it
 
-- Node.js 20.9 or newer
-- npm 10+
-
-## Installation & local development
+Requires Node.js 20.9+.
 
 ```bash
 cd portfolio
 npm install
-npm run dev
+npm run dev          # http://localhost:3000 → /en
+npm run build && npm run start
+npm run lint
+npm run typecheck
 ```
 
-Open http://localhost:3000.
-
-## Production build
-
-```bash
-npm run build
-npm run start
-```
-
-Other scripts:
-
-```bash
-npm run lint        # ESLint
-npm run typecheck   # TypeScript, no emit
-```
+In development `/admin` works on `localhost` so you can try it (set `ADMIN_PASSWORD`
+in `.env.local` first); requests are saved to `.data/submissions.json`.
 
 ---
 
-## Environment variables
+## Languages
 
-Copy `.env.example` to `.env.local` and fill in what you need. Never commit real
-values.
+- English is the default; every page has an Arabic version with full right-to-left
+  layout and IBM Plex Sans Arabic.
+- The **العربية / English** link in the header keeps you on the same page.
+- Interface text: `lib/i18n.ts`. Content: the `{ en, ar }` pairs in `data/*.ts`.
 
-| Variable | Required | Description |
-| --- | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | Recommended | Production URL, e.g. `https://yourname.dev`. Used for canonical URLs, sitemap and OpenGraph. On Vercel the production domain is used automatically if this is unset. |
-| `RESEND_API_KEY` | For contact email | API key from [Resend](https://resend.com). |
-| `CONTACT_TO_EMAIL` | For contact email | The inbox that receives enquiries. |
-| `CONTACT_FROM_EMAIL` | Optional | Sender, e.g. `Portfolio <hello@yourname.dev>`. Must be on a domain verified in Resend. |
+## Adding a project
 
----
+Add an object to `data/projects.ts` (every text field is `{ en, ar }`).
 
-## Editing your details
-
-Open **`data/site.ts`**:
-
-- `name` — shown in the logo, footer and page titles (**change this first**).
-- `role`, `tagline`, `description` — used in the hero and SEO.
-- `availability` — toggles the “Available for freelance projects” badge.
-- `email`, `social.github`, `social.linkedin` — leave empty to hide. Only
-  configured links are shown anywhere on the site.
-
-## Adding or updating projects
-
-All projects live in **`data/projects.ts`**. To add one, copy an existing object
-and change the fields:
-
-```ts
-{
-  slug: "my-new-project",          // URL: /work/my-new-project
-  number: "05",
-  name: "My New Project",
-  category: "Booking Website",
-  status: "Personal Project",      // or "Concept Project"
-  year: 2026,
-  platform: "web",                 // or "mobile"
-  featured: true,                  // show on the home page
-  shortDescription: "…",
-  description: "…",
-  technologies: ["Next.js", "TypeScript"],
-  visual: "velora",                // coded preview to use until you add images
-  thumbnail: { src: "/projects/my-new-project/cover.jpg", alt: "…", width: 1600, height: 1100, kind: "desktop" },
-  images: [
-    { src: "/projects/my-new-project/home.png", alt: "Home page", width: 1440, height: 900, kind: "desktop" },
-    { src: "/projects/my-new-project/mobile.png", alt: "Mobile home", width: 390, height: 844, kind: "mobile" },
-  ],
-  liveUrl: "https://…",            // empty → button hidden
-  githubUrl: "https://github.com/…",
-  appDemoUrl: "",
-  caseStudy: { overview, goal, designDirection, developmentApproach, features, responsive, challenges, result },
-}
-```
-
-The home grid, `/work`, the case study page, the sitemap and structured data all
-update automatically. Buttons for **Live Demo**, **App Demo** and **Source Code**
-appear only when the URL is filled in — there are never dead links.
-
-## Replacing images
-
-- **Project screenshots:** put files in `public/projects/<slug>/` and reference
-  them in `thumbnail` and `images`. Real images automatically replace the coded
-  previews on cards and case studies. Recommended: desktop 1440×900 (or larger,
-  same ratio), mobile 390×844, PNG or high-quality JPG. Next.js optimises and
-  serves AVIF/WebP automatically.
-- **Coded previews:** the default project visuals are real React components in
-  `components/project/previews/`. They scale with their container, so no
-  screenshots are needed to get started.
-- **Hero image:** put `public/images/hero-studio.jpg` in place (≥ 2400px wide,
-  dark, subject on the right) — `node scripts/optimize-images.mjs <source>`
-  resizes and compresses it. If the file is absent, the hero shows a fallback
-  built from the coded project interfaces. See `HIGGSFIELD_ASSETS.md`.
-- **Share image:** generated in code by `app/opengraph-image.tsx`; edit the text
-  or colours there.
-- **Favicon:** edit `app/icon.svg`.
-
-## Skills and services
-
-- Skills: `data/skills.ts` — only list what you genuinely use.
-- Services and process steps: `data/services.ts`.
+- **Hosted inside this site?** Put its pages under `app/(…)/demos/<name>/` like Velora
+  and set `livePath: "/demos/<name>"`. The card then opens the live site directly, in
+  the visitor's language.
+- **Deployed elsewhere?** Set `liveUrl: "https://…"` instead.
+- No live version yet? Leave both empty — the card opens the case study.
 
 ---
 
-## Connecting the contact form to email
+## Deploying to Vercel (step by step)
 
-The form is fully validated on the client **and** on the server
-(`lib/contact.ts` is shared by both). The endpoint is `app/api/contact/route.ts`
-and uses the Resend HTTP API with plain `fetch` (no extra dependency).
+### 1. Import the project
+1. vercel.com → **Add New → Project** → choose this GitHub repository.
+2. **Root Directory:** `portfolio`. Framework: Next.js (detected). Deploy.
 
-1. Create a free account at https://resend.com.
-2. Add and verify your domain (Resend → Domains). For quick testing you can skip
-   this and use the default sender `onboarding@resend.dev`, which can only send to
-   your own Resend account email.
-3. Create an API key (Resend → API Keys).
-4. Set the variables locally in `.env.local` and on Vercel
-   (Project → Settings → Environment Variables):
-   ```
-   RESEND_API_KEY=re_…
-   CONTACT_TO_EMAIL=you@yourdomain.com
-   CONTACT_FROM_EMAIL=Portfolio <hello@yourdomain.com>
-   ```
-5. Redeploy. Submissions arrive in your inbox with the visitor’s address as
-   `reply-to`, so you can answer directly.
+### 2. Store the requests (required)
+1. In the Vercel project: **Storage → Create / Connect → Upstash for Redis** (free plan).
+2. Connect it to the project. Vercel adds `KV_REST_API_URL` and `KV_REST_API_TOKEN`
+   automatically.
 
-Until it is configured the API responds with `503 not_configured`. In
-development the form shows a hint explaining this; in production it shows a
-friendly error, plus a direct email link if `site.email` is set.
+Without this, the contact form cannot save requests in production.
 
-Want a different provider (Postmark, SendGrid, Formspree…)? Replace only the
-`fetch` call inside `app/api/contact/route.ts` — validation and the UI stay the
-same. A hidden honeypot field filters simple spam bots.
+### 3. Create the private admin domain
+1. Project → **Settings → Domains → Add** → type a second domain, for example
+   `zenox-admin.vercel.app` (any free `*.vercel.app` name), or `admin.yourdomain.com`
+   if you own a domain.
+2. Project → **Settings → Environment Variables**, add:
+   - `ADMIN_HOST` = `zenox-admin.vercel.app` (exactly the domain from step 1)
+   - `ADMIN_PASSWORD` = a long, random password
+3. **Redeploy** (Deployments → ⋯ → Redeploy).
+
+Now:
+- `https://zenox-admin.vercel.app` opens the admin login — nothing else is served there.
+- `/admin` on your public portfolio domain returns **404**, so nobody can find it.
+- Without `ADMIN_HOST` the admin panel is switched off in production.
+
+### 4. Optional
+- `NEXT_PUBLIC_SITE_URL` — your final public URL (canonical links, sitemap).
+- `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL` — also receive each
+  request by email (Resend, https://resend.com).
+
+All variables are listed in `.env.example`. Never commit real values.
+
+---
+
+## The admin panel
+
+- **List:** every request, newest first, with counts for New / In progress / Done,
+  status tabs and search by name, phone, email or message.
+- **Request page:** full details, the message, and one-tap **Call**, **WhatsApp** and
+  **Email** buttons; change status; delete (asks for confirmation).
+- **Security:** host lock (proxy.ts) + password; the session is a signed, httpOnly,
+  SameSite=strict cookie that expires after 7 days; failed logins are slowed down;
+  pages are `noindex` and never cached.
+
+## The contact form
+
+Name, email, **phone** (with country code), project type, budget and message are all
+required, validated in the browser and again on the server (`lib/contact.ts`).
+A hidden honeypot field filters simple spam bots.
 
 ---
 
-## Deploying to Vercel
+## Images
 
-1. Push the `portfolio` folder to a GitHub repository (it can be the repo root or
-   a subfolder).
-2. In Vercel, **Add New → Project** and import the repository.
-3. If the site is in a subfolder, set **Root Directory** to `portfolio`.
-4. Framework preset: **Next.js** (auto-detected). Build command `npm run build`.
-5. Add the environment variables above (at least `NEXT_PUBLIC_SITE_URL`).
-6. Deploy. Add your custom domain under Settings → Domains and update
-   `NEXT_PUBLIC_SITE_URL` to match.
-
----
+- Portfolio hero: `public/images/hero-studio.jpg` (optional — without it the hero shows
+  the coded project interfaces). See `HIGGSFIELD_ASSETS.md`.
+- Velora photos: AI-generated with Higgsfield, loaded from its CDN. To self-host them,
+  run `node scripts/fetch-velora-images.mjs` from the `portfolio` folder (it rewrites
+  `demos/velora/data/images.ts`). Details: `demos/velora/IMAGES.md`.
 
 ## Screenshots
 
-`screenshots/` contains desktop and mobile captures for Upwork and social posts.
-To regenerate them after changes:
-
 ```bash
-npm run build && npm run start      # in one terminal
-npm run screenshots                 # in another (uses Playwright + Chromium)
+npm run build && npm run start      # terminal 1
+npm run screenshots                 # terminal 2
 ```
 
-## Higgsfield-generated assets
+## More docs
 
-Only the hero image was generated with Higgsfield; project visuals are real coded
-interfaces rather than generated mockups. Details, prompt summary and how to
-replace it are in [`HIGGSFIELD_ASSETS.md`](./HIGGSFIELD_ASSETS.md).
-
-## Upwork copy
-
-Profile headline, overviews, project descriptions and proposal links are in
-[`UPWORK_PROFILE_ASSETS.md`](./UPWORK_PROFILE_ASSETS.md).
-
-## Accessibility & performance notes
-
-- Semantic landmarks, one `h1` per page, skip link, visible focus states.
-- Mobile menu traps focus, closes on Escape and route change.
-- Form fields have labels, error messages linked with `aria-describedby`.
-- All animation respects `prefers-reduced-motion`.
-- Above-the-fold entrance animation is CSS-only, so text never waits on JavaScript.
-- Fonts are self-hosted via `next/font`; images use `next/image` with AVIF/WebP.
+- `HIGGSFIELD_ASSETS.md` — generated assets and prompts
+- `UPWORK_PROFILE_ASSETS.md` — profile headline, overviews, project copy
+- `demos/velora/README.md`, `PRODUCT.md`, `DESIGN.md` — the Velora project

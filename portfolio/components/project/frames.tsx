@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 /** Minimal browser chrome around a desktop interface. */
 export function BrowserFrame({ url, children, className }: { url: string; children: ReactNode; className?: string }) {
   return (
-    <div className={cn("overflow-hidden rounded-[10px] border border-white/10 bg-[#1a1a1d] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)]", className)}>
+    <div dir="ltr" className={cn("overflow-hidden rounded-[10px] border border-white/10 bg-[#1a1a1d] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)]", className)}>
       <div className="flex h-7 items-center gap-3 border-b border-white/5 px-3" aria-hidden>
         <div className="flex gap-1.5">
           <span className="size-2 rounded-full bg-white/15" />
@@ -25,6 +25,7 @@ export function BrowserFrame({ url, children, className }: { url: string; childr
 export function PhoneFrame({ children, className, tone = "dark" }: { children: ReactNode; className?: string; tone?: "dark" | "light" }) {
   return (
     <div
+      dir="ltr"
       className={cn(
         "relative rounded-[13%/6%] border border-white/10 bg-[#0c0c0e] p-[3.2%] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.75)]",
         className,

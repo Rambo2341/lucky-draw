@@ -1,6 +1,7 @@
 import type { ComponentType } from "react";
 import Image from "next/image";
 import type { Project } from "@/data/projects";
+import { getDict, type Locale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { BrowserFrame, PhoneFrame } from "./frames";
 import { VeloraDesktop, VeloraMobile } from "./previews/velora";
@@ -45,7 +46,7 @@ export const visuals: Record<Project["visual"], VisualSet> = {
  * Uses the project's thumbnail image when one is configured, otherwise
  * composes its coded previews inside device frames.
  */
-export function ProjectCover({ project, priority, className }: { project: Project; priority?: boolean; className?: string }) {
+export function ProjectCover({ project, locale, priority, className }: { project: Project; locale: Locale; priority?: boolean; className?: string }) {
   const set = visuals[project.visual];
   const Desktop = set.desktop;
   const FirstMobile = set.mobile[0].component;
@@ -92,7 +93,7 @@ export function ProjectCover({ project, priority, className }: { project: Projec
           ))}
         </div>
       )}
-      <span className="sr-only">Interface preview of {project.name}</span>
+      <span className="sr-only">{getDict(locale).work.preview(project.name)}</span>
     </div>
   );
 }
