@@ -70,44 +70,45 @@ export const projects: Project[] = [
     platform: "web",
     featured: true,
     shortDescription:
-      "A premium real-estate experience built around elegant property discovery and calm, responsive UX.",
+      "A working, bilingual (Arabic/English) luxury property platform for the Gulf, with search, filters, favourites and viewing requests.",
     description:
-      "A premium real-estate web experience focused on elegant property discovery, sophisticated presentation, and responsive UX.",
+      "A fully working luxury real-estate website for the Gulf market, in Arabic and English, where every page and control can be tried: search, filters, favourites and a validated viewing request.",
     technologies: ["Next.js", "TypeScript", "Tailwind CSS"],
     visual: "velora",
+    /** Set to the deployed URL (e.g. https://velora-estates.vercel.app) once it is live; the Live Demo button appears automatically. */
     liveUrl: "",
     githubUrl: "",
     caseStudy: {
       overview:
-        "Velora Estates is a concept website for a high-end property agency. It explores how a listing site can feel closer to an editorial magazine than a database, without losing the search and filtering that buyers depend on.",
+        "Velora Estates is a complete concept website for a fictional luxury agency with desks in Riyadh, Jeddah, Dubai and Kuwait City. Eight pages — Home, Residences, Property, Set aside, Locations, Agents, About and Contact — all work, in Arabic and English.",
       goal:
-        "The goal of this personal project was to design and structure a real-estate experience where browsing feels unhurried and premium, while search, filters, favourites and viewing requests stay fast and obvious.",
+        "The goal of this personal project was to prove, in a form a real-estate client can click through, that a premium bilingual property platform can be calm and editorial while search, filters, favourites and viewing requests stay fast and obvious.",
       designDirection:
-        "A restrained palette of warm stone and deep charcoal, large photography, generous whitespace and a serif display face for property names. Interface chrome is kept quiet so the homes carry the page.",
+        "The site is designed as a private agency's concierge stationery: white card stock, black letterpress ink, sand-coloured fields and an embossed V monogram. Each listing is issued as a keycard with a serial number and a perforated stub; favourites are cards set aside in a holder; a viewing request issues a numbered appointment card.",
       developmentApproach:
-        "The interface is planned as a Next.js App Router project in TypeScript. Listings are typed data objects, so filters, sorting and favourites are pure functions over one source of truth. Search state lives in the URL, which keeps results shareable and the back button honest.",
+        "Built with the Next.js App Router in TypeScript and statically generated for both languages. Listings, agents and cities are typed bilingual data, so filtering and sorting are pure functions over one source of truth. Filter state lives in the URL, favourites and appointments persist in the browser, and Arabic pages render right-to-left with their own typefaces.",
       features: [
-        { title: "Property listings", body: "Card grid with price, location, size and key facts scannable at a glance." },
-        { title: "Search & filtering", body: "Location search combined with price, bedrooms and property type filters, reflected in the URL." },
-        { title: "Favourites", body: "Save properties to a shortlist that persists between visits." },
-        { title: "Property details", body: "Gallery, specifications, floor area and neighbourhood notes in one clear layout." },
-        { title: "Schedule a viewing", body: "A short, validated request form with preferred date and time." },
-        { title: "Responsive layouts", body: "Designed separately for desktop browsing and one-handed mobile use." },
+        { title: "Concierge search", body: "A request written as a sentence — type, city, buy or rent, budget — that opens the filtered collection." },
+        { title: "Filters & sorting", body: "City, type, purpose, budget and bedrooms, with a live count, an empty state and shareable URLs." },
+        { title: "Set aside", body: "Favourites saved in the browser, with the header holder counting cards as you add them." },
+        { title: "Property pages", body: "Gallery with keyboard navigation, spec sheet, features, location and the responsible agent." },
+        { title: "Schedule a viewing", body: "Validated date, time, name, phone and email; issues a numbered appointment card instantly." },
+        { title: "Arabic & English", body: "Every string written in both languages, full RTL layout, local currencies (SAR, AED, KWD)." },
       ],
       responsive:
-        "On desktop, filters sit in a persistent bar above a three-column grid. On tablet the grid drops to two columns. On mobile, filters collapse into a bottom sheet, cards go full-width and the primary action — ‘Schedule viewing’ — stays within thumb reach.",
+        "On desktop the filters sit in a sticky bar above a three-column grid and the spec sheet and viewing form stay beside the gallery. On phones the filters fold into one button with an active-filter count, cards stack full-width and the viewing form follows the property details.",
       challenges: [
         {
-          challenge: "Premium visuals tend to make listing pages heavy and slow.",
-          solution: "Responsive image sizes, lazy loading below the fold and fixed aspect ratios so the layout never shifts while photos load.",
+          challenge: "Budgets are hard to compare across SAR, AED and KWD.",
+          solution: "Prices always show in local currency, while budget filters compare a US-dollar equivalent using fixed peg rates, stated beside the results.",
         },
         {
-          challenge: "Many filters can overwhelm a minimal design.",
-          solution: "Only the three most-used filters are visible; the rest live behind a single ‘More filters’ control with a live result count.",
+          challenge: "Arabic and English need different typography, not just mirrored layouts.",
+          solution: "Each language has its own display and body faces, line heights and letter-spacing, switched with the document direction.",
         },
       ],
       result:
-        "A calm, editorial property experience that keeps the practical tools buyers need one tap away. The previews on this page are rendered live in code rather than as static mockups.",
+        "A property platform a client can actually use: open a residence, filter the collection, set cards aside and request a viewing, in either language. The listings, agents and images are fictional and labelled as such.",
     },
   },
   {
