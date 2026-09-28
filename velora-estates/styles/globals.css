@@ -8,7 +8,7 @@
   --color-sand-deep: #d9ccb6;
   --color-ink: #141312;
   --color-ink-2: #55504a;
-  --color-ink-3: #7a7369;
+  --color-ink-3: #655e55;
   --color-rule: #d9d1c3;
   --color-error: #9b2c1f;
 
@@ -233,6 +233,7 @@
   /* A card of stock lying on a sand field. */
   .stock {
     background: var(--color-stock);
+    border-radius: 14px;
     box-shadow: 0 1px 1px rgba(20, 19, 18, 0.05), 0 8px 24px -10px rgba(20, 19, 18, 0.18);
   }
 

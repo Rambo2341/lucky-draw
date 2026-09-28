@@ -37,7 +37,7 @@ export function FannedCards({ items, locale }: { items: Property[]; locale: Loca
                 } as CSSProperties
               }
             >
-              <div className="stock rounded-[12px] p-2 shadow-[0_2px_2px_rgba(20,19,18,0.06),0_24px_48px_-18px_rgba(20,19,18,0.35)]">
+              <div className="stock p-2 shadow-[0_2px_2px_rgba(20,19,18,0.06),0_24px_48px_-18px_rgba(20,19,18,0.35)]">
                 <div className="relative aspect-[1.586] overflow-hidden rounded-[8px] bg-sand-deep">
                   <Image src={img.src} alt={top ? tr(img.alt, locale) : ""} fill priority sizes="420px" className="object-cover" />
                   <span className="serial absolute start-2 top-2 bg-stock/95 px-2 py-1" dir="ltr">

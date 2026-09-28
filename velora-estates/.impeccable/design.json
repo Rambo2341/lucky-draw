@@ -1,0 +1,409 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-28T15:29:51.094Z",
+  "title": "Design System: VELORA ESTATES",
+  "extensions": {
+    "colorMeta": {
+      "stock": {
+        "role": "neutral",
+        "displayName": "Card Stock",
+        "canonical": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#242424",
+          "#404040",
+          "#5d5d5d",
+          "#7d7d7d",
+          "#9e9e9e",
+          "#c4c4c4",
+          "#eeeeee"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Laid Paper",
+        "canonical": "oklch(98.0% 0.006 84.6)",
+        "tonalRamp": [
+          "#0c0b09",
+          "#252421",
+          "#413f3c",
+          "#5f5d5a",
+          "#7f7d79",
+          "#a09e9a",
+          "#c6c4c0",
+          "#f0eeea"
+        ]
+      },
+      "sand": {
+        "role": "neutral",
+        "displayName": "Sand Field",
+        "canonical": "oklch(91.8% 0.021 81.8)",
+        "tonalRamp": [
+          "#100a03",
+          "#292319",
+          "#453f34",
+          "#645d51",
+          "#837c70",
+          "#a59d90",
+          "#cbc3b5",
+          "#f6eddf"
+        ]
+      },
+      "sand-deep": {
+        "role": "neutral",
+        "displayName": "Deep Sand",
+        "canonical": "oklch(85.0% 0.033 81.0)",
+        "tonalRamp": [
+          "#120900",
+          "#2c2211",
+          "#493e2c",
+          "#675c49",
+          "#887c67",
+          "#a99d88",
+          "#cfc2ad",
+          "#faedd6"
+        ]
+      },
+      "ink": {
+        "role": "primary",
+        "displayName": "Letterpress Black",
+        "canonical": "oklch(18.7% 0.003 67.7)",
+        "tonalRamp": [
+          "#0c0b0a",
+          "#252423",
+          "#413f3e",
+          "#5f5d5c",
+          "#7e7d7c",
+          "#9f9e9d",
+          "#c5c4c2",
+          "#f0eeed"
+        ]
+      },
+      "ink-hover": {
+        "role": "primary",
+        "displayName": "Pressed Black",
+        "canonical": "oklch(28.7% 0.007 67.5)",
+        "tonalRamp": [
+          "#0d0b08",
+          "#262320",
+          "#423f3c",
+          "#605d59",
+          "#807c79",
+          "#a19e9a",
+          "#c7c3bf",
+          "#f2eeea"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Secondary Ink",
+        "canonical": "oklch(43.4% 0.012 72.5)",
+        "tonalRamp": [
+          "#0e0a06",
+          "#28231e",
+          "#443f39",
+          "#625d57",
+          "#827c76",
+          "#a39d97",
+          "#c9c3bc",
+          "#f3ede6"
+        ]
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Tertiary Ink",
+        "canonical": "oklch(55.9% 0.017 77.0)",
+        "tonalRamp": [
+          "#0f0a04",
+          "#29231b",
+          "#453f36",
+          "#635d53",
+          "#837c72",
+          "#a59d93",
+          "#cbc3b8",
+          "#f5ede2"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Hairline Rule",
+        "canonical": "oklch(86.3% 0.021 81.8)",
+        "tonalRamp": [
+          "#100a03",
+          "#292318",
+          "#453f33",
+          "#645d50",
+          "#847c6f",
+          "#a59d90",
+          "#cbc3b5",
+          "#f6eddf"
+        ]
+      },
+      "error": {
+        "role": "tertiary",
+        "displayName": "Error Red",
+        "canonical": "oklch(46.3% 0.149 30.2)",
+        "tonalRamp": [
+          "#2d0000",
+          "#4f0000",
+          "#721d13",
+          "#953e32",
+          "#ba5f51",
+          "#df8071",
+          "#ffa695",
+          "#ffd0be"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Home headline only. Bodoni Moda LTR; Amiri RTL with line-height 1.35 and no tracking."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles and page heads."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Card, agent and sub-section names."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Ledes and descriptions in secondary ink, 52ch to 62ch."
+      },
+      "body-sm": {
+        "displayName": "Body Small",
+        "purpose": "Specs, navigation, controls."
+      },
+      "label": {
+        "displayName": "Printed Label",
+        "purpose": "Field names, legends, footer heads, card roles. Arabic 0.8125rem, no tracking, no case."
+      },
+      "serial": {
+        "displayName": "Serial",
+        "purpose": "Serials, references, counters; always dir=ltr."
+      }
+    },
+    "shadows": [
+      {
+        "name": "stock",
+        "value": "0 1px 1px rgba(20,19,18,0.05), 0 8px 24px -10px rgba(20,19,18,0.18)",
+        "purpose": "Every card of stock lying on a field."
+      },
+      {
+        "name": "dealt",
+        "value": "0 2px 2px rgba(20,19,18,0.06), 0 24px 48px -18px rgba(20,19,18,0.35)",
+        "purpose": "Fanned hero keycards on the sand field only."
+      },
+      {
+        "name": "field-focus",
+        "value": "0 0 0 3px var(--color-sand)",
+        "purpose": "Focused form field halo, paired with an ink border."
+      }
+    ],
+    "focus": {
+      "value": "outline: 2px solid var(--color-ink); outline-offset: 3px",
+      "purpose": "Global :focus-visible."
+    },
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "All rises, deals, stamps and hover transforms."
+      },
+      {
+        "name": "rise",
+        "value": "0.9s; translateY(14px) and opacity 0 to rest; stagger via --d in 80ms steps",
+        "purpose": "Page head and hero entrance."
+      },
+      {
+        "name": "deal",
+        "value": "1s; from translate(0,40px) rotate(0); delay 250ms + 140ms per card",
+        "purpose": "Hero keycards dealt onto the sand field."
+      },
+      {
+        "name": "stamp",
+        "value": "0.4s to 0.5s; scale 1.35 to 0.96 to 1 at rotate(-4deg)",
+        "purpose": "Set-aside check and the Requested stamp."
+      },
+      {
+        "name": "bump",
+        "value": "0.5s; translateY(-3px) scale(1.12) at 40%",
+        "purpose": "Holder counter when a card is set aside."
+      },
+      {
+        "name": "photo-scale",
+        "value": "900ms; scale 1.03 (cards) to 1.04 (cities)",
+        "purpose": "Photo hover inside its window."
+      },
+      {
+        "name": "control",
+        "value": "0.2s colour and border; 0.15s 1px press",
+        "purpose": "Buttons, fields, slots."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "all animation and transition durations 0.01ms",
+        "purpose": "prefers-reduced-motion: reduce."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      },
+      {
+        "name": "shell-max",
+        "value": "1360px"
+      }
+    ],
+    "scripts": {
+      "ltr": {
+        "lang": "en",
+        "display": "Bodoni Moda",
+        "body": "Hanken Grotesk"
+      },
+      "rtl": {
+        "lang": "ar",
+        "display": "Amiri",
+        "body": "Readex Pro",
+        "switch": "html[dir=rtl] redefines --font-display and --font-sans"
+      }
+    }
+  },
+  "components": [
+    {
+      "name": "Ink Button",
+      "kind": "button",
+      "refersTo": "button-ink",
+      "description": "Primary action; one per region (slip submit, viewing request).",
+      "html": "<button class=\"ds-btn ds-btn-ink\">Show residences</button>",
+      "css": ":host{--color-stock:#ffffff;--color-paper:#faf8f4;--color-sand:#ebe3d5;--color-sand-deep:#d9ccb6;--color-ink:#141312;--color-ink-2:#55504a;--color-ink-3:#655e55;--color-rule:#d9d1c3;--color-error:#9b2c1f;--ease-out:cubic-bezier(0.16,1,0.3,1);}.ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:3rem;padding:0 1.5rem;font:500 0.9375rem \"Hanken Grotesk\",system-ui,sans-serif;border-radius:2px;border:0;cursor:pointer;transition:background-color .2s,color .2s,border-color .2s,transform .15s;}.ds-btn:active{transform:translateY(1px);}.ds-btn:focus-visible{outline:2px solid var(--color-ink);outline-offset:3px;}.ds-btn-ink{background:var(--color-ink);color:var(--color-stock);}.ds-btn-ink:hover{background:#2d2a27;}"
+    },
+    {
+      "name": "Line Button",
+      "kind": "button",
+      "refersTo": "button-line",
+      "description": "Secondary action with a 1px ink border and sand hover wash.",
+      "html": "<button class=\"ds-btn ds-btn-line\">View all residences</button>",
+      "css": ":host{--color-stock:#ffffff;--color-paper:#faf8f4;--color-sand:#ebe3d5;--color-sand-deep:#d9ccb6;--color-ink:#141312;--color-ink-2:#55504a;--color-ink-3:#655e55;--color-rule:#d9d1c3;--color-error:#9b2c1f;--ease-out:cubic-bezier(0.16,1,0.3,1);}.ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:3rem;padding:0 1.5rem;font:500 0.9375rem \"Hanken Grotesk\",system-ui,sans-serif;border-radius:2px;border:0;cursor:pointer;transition:background-color .2s,color .2s,border-color .2s,transform .15s;}.ds-btn:active{transform:translateY(1px);}.ds-btn:focus-visible{outline:2px solid var(--color-ink);outline-offset:3px;}.ds-btn-line{background:transparent;border:1px solid var(--color-ink);color:var(--color-ink);}.ds-btn-line:hover{background:var(--color-sand);}"
+    },
+    {
+      "name": "Field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "Stacked form field with a printed label above.",
+      "html": "<label class=\"ds-field-wrap\"><span class=\"ds-label\">Full name</span><input class=\"ds-field\" placeholder=\"As on your ID\"></label>",
+      "css": ":host{--color-stock:#ffffff;--color-paper:#faf8f4;--color-sand:#ebe3d5;--color-sand-deep:#d9ccb6;--color-ink:#141312;--color-ink-2:#55504a;--color-ink-3:#655e55;--color-rule:#d9d1c3;--color-error:#9b2c1f;--ease-out:cubic-bezier(0.16,1,0.3,1);}.ds-field-wrap{display:block;font-family:\"Hanken Grotesk\",system-ui,sans-serif;}.ds-label{display:block;margin-bottom:.375rem;font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;color:var(--color-ink-3);font-weight:500;}.ds-field{display:block;width:100%;background:var(--color-stock);border:1px solid var(--color-rule);border-radius:2px;padding:.75rem .875rem;font:inherit;font-size:1rem;color:var(--color-ink);min-height:3rem;transition:border-color .2s,box-shadow .2s;}.ds-field::placeholder{color:var(--color-ink-3);}.ds-field:hover{border-color:var(--color-ink-3);}.ds-field:focus{outline:none;border-color:var(--color-ink);box-shadow:0 0 0 3px var(--color-sand);}.ds-field[aria-invalid=true]{border-color:var(--color-error);}"
+    },
+    {
+      "name": "Request Slip Blank",
+      "kind": "custom",
+      "refersTo": "blank",
+      "description": "Inline underline blank inside the request sentence.",
+      "html": "<p class=\"ds-slip\">I am looking for a <select class=\"ds-blank\"><option>villa</option><option>penthouse</option></select> in <select class=\"ds-blank\"><option>Riyadh</option><option>Dubai</option></select>.</p>",
+      "css": ":host{--color-stock:#ffffff;--color-paper:#faf8f4;--color-sand:#ebe3d5;--color-sand-deep:#d9ccb6;--color-ink:#141312;--color-ink-2:#55504a;--color-ink-3:#655e55;--color-rule:#d9d1c3;--color-error:#9b2c1f;--ease-out:cubic-bezier(0.16,1,0.3,1);}.ds-slip{font-family:\"Bodoni Moda\",\"Times New Roman\",serif;font-size:1.875rem;line-height:1.7;letter-spacing:-.02em;color:var(--color-ink);border-block:1px solid var(--color-ink);padding:1.5rem 0;margin:0;}.ds-blank{appearance:none;background:transparent;border:0;border-bottom:1.5px solid var(--color-ink);border-radius:0;padding:.15em 1.4em .1em .1em;font:inherit;color:inherit;cursor:pointer;background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%);background-position:calc(100% - .55em) 55%,calc(100% - .3em) 55%;background-size:.25em .25em;background-repeat:no-repeat;transition:background-color .2s;}.ds-blank:hover{background-color:var(--color-sand);}.ds-blank:focus-visible{outline:2px solid var(--color-ink);outline-offset:3px;}"
+    },
+    {
+      "name": "Keycard",
+      "kind": "card",
+      "refersTo": "keycard",
+      "description": "Listing issued as a keycard: 1.586:1 photo window, serial, perforation, stub with set-aside.",
+      "html": "<div class=\"ds-bg\"><article class=\"ds-keycard\"><div class=\"ds-window\"><span class=\"ds-serial\">VE-RYD-0142</span><span class=\"ds-tag\">Sale · Villa</span></div><div class=\"ds-body\"><h3 class=\"ds-name\">Najd Courtyard Villa</h3><p class=\"ds-dist\">Al Malqa, Riyadh</p></div><div class=\"ds-perf\"></div><div class=\"ds-stub\"><div><p class=\"ds-price\">SAR 14,500,000</p><p class=\"ds-spec\">6 beds · 7 baths · 1,240 m²</p></div><button class=\"ds-aside\" aria-pressed=\"false\">Set aside</button></div></article></div>",
+      "css": ":host{--color-stock:#ffffff;--color-paper:#faf8f4;--color-sand:#ebe3d5;--color-sand-deep:#d9ccb6;--color-ink:#141312;--color-ink-2:#55504a;--color-ink-3:#655e55;--color-rule:#d9d1c3;--color-error:#9b2c1f;--ease-out:cubic-bezier(0.16,1,0.3,1);}.ds-bg{background:var(--color-paper);padding:24px;font-family:\"Hanken Grotesk\",system-ui,sans-serif;color:var(--color-ink);}.ds-keycard{background:var(--color-stock);border-radius:14px;box-shadow:0 1px 1px rgba(20,19,18,.05),0 8px 24px -10px rgba(20,19,18,.18);max-width:360px;}.ds-window{position:relative;margin:8px 8px 0;aspect-ratio:1.586;border-radius:10px;background:var(--color-sand-deep);overflow:hidden;}.ds-serial{position:absolute;top:10px;inset-inline-start:10px;background:rgba(255,255,255,.95);padding:4px 8px;font-size:.75rem;font-weight:500;letter-spacing:.08em;font-variant-numeric:tabular-nums;}.ds-tag{position:absolute;top:10px;inset-inline-end:10px;background:var(--color-ink);color:var(--color-stock);padding:4px 8px;font-size:.75rem;font-weight:500;}.ds-body{padding:16px 20px;}.ds-name{margin:0;font:400 1.5rem/1.02 \"Bodoni Moda\",serif;letter-spacing:-.02em;}.ds-dist{margin:4px 0 0;font-size:.875rem;color:var(--color-ink-2);}.ds-perf{position:relative;border-top:1.5px dashed var(--color-rule);}.ds-perf::before,.ds-perf::after{content:\"\";position:absolute;top:-8px;width:16px;height:16px;border-radius:50%;background:var(--color-paper);}.ds-perf::before{inset-inline-start:-9px;}.ds-perf::after{inset-inline-end:-9px;}.ds-stub{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;}.ds-price{margin:0;font-size:1.0625rem;font-weight:600;font-variant-numeric:tabular-nums;}.ds-spec{margin:2px 0 0;font-size:.8125rem;color:var(--color-ink-2);font-variant-numeric:tabular-nums;}.ds-aside{min-height:44px;padding:0 14px;border:1px solid rgba(20,19,18,.7);background:transparent;color:var(--color-ink);font-family:inherit;font-size:.875rem;font-weight:500;cursor:pointer;transition:background-color .2s,color .2s;}.ds-aside:hover{background:var(--color-sand);}.ds-aside[aria-pressed=true]{background:var(--color-ink);color:var(--color-stock);border-color:var(--color-ink);}.ds-aside:focus-visible{outline:2px solid var(--color-ink);outline-offset:3px;}"
+    },
+    {
+      "name": "Time Slot",
+      "kind": "chip",
+      "refersTo": "set-aside",
+      "description": "Selectable slot; hairline when open, solid ink when chosen.",
+      "html": "<div class=\"ds-slots\"><button class=\"ds-slot\">10:00</button><button class=\"ds-slot ds-on\">12:00</button><button class=\"ds-slot\">16:00</button></div>",
+      "css": ":host{--color-stock:#ffffff;--color-paper:#faf8f4;--color-sand:#ebe3d5;--color-sand-deep:#d9ccb6;--color-ink:#141312;--color-ink-2:#55504a;--color-ink-3:#655e55;--color-rule:#d9d1c3;--color-error:#9b2c1f;--ease-out:cubic-bezier(0.16,1,0.3,1);}.ds-slots{display:flex;gap:8px;font-family:\"Hanken Grotesk\",system-ui,sans-serif;}.ds-slot{min-height:44px;padding:0 14px;border:1px solid var(--color-rule);background:var(--color-stock);color:var(--color-ink);font-size:.9375rem;font-variant-numeric:tabular-nums;cursor:pointer;transition:border-color .2s,background-color .2s;}.ds-slot:hover{border-color:var(--color-ink);}.ds-slot.ds-on{background:var(--color-ink);color:var(--color-stock);border-color:var(--color-ink);}.ds-slot:focus-visible{outline:2px solid var(--color-ink);outline-offset:2px;}"
+    },
+    {
+      "name": "Header",
+      "kind": "nav",
+      "refersTo": "header",
+      "description": "Sticky stock header: monogram wordmark, underlined current link, language switch, holder counter.",
+      "html": "<header class=\"ds-nav\"><a class=\"ds-mark\" href=\"#\"><svg viewBox=\"0 0 40 40\" width=\"32\" height=\"32\" aria-hidden=\"true\"><circle cx=\"20\" cy=\"20\" r=\"18.5\" fill=\"none\" stroke=\"currentColor\"/><circle cx=\"20\" cy=\"20\" r=\"15.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\".5\" opacity=\".5\"/><path d=\"M12.5 12.5h4.2L20 23.6l3.3-11.1h4.2L21.6 28h-3.2z\" fill=\"currentColor\"/></svg>VELORA</a><nav><a href=\"#\" aria-current=\"page\">Properties</a><a href=\"#\">Locations</a><a href=\"#\">Agents</a></nav><a class=\"ds-lang\" href=\"#\" lang=\"ar\">العربية</a><a class=\"ds-holder\" href=\"#\">Set aside <span>2</span></a></header>",
+      "css": ":host{--color-stock:#ffffff;--color-paper:#faf8f4;--color-sand:#ebe3d5;--color-sand-deep:#d9ccb6;--color-ink:#141312;--color-ink-2:#55504a;--color-ink-3:#655e55;--color-rule:#d9d1c3;--color-error:#9b2c1f;--ease-out:cubic-bezier(0.16,1,0.3,1);}.ds-nav{display:flex;align-items:center;gap:24px;height:72px;padding:0 40px;background:var(--color-stock);border-bottom:1px solid var(--color-rule);font-family:\"Hanken Grotesk\",system-ui,sans-serif;font-size:.9375rem;}.ds-mark{display:flex;align-items:center;gap:10px;color:var(--color-ink);text-decoration:none;font-family:\"Bodoni Moda\",serif;font-size:1.15rem;letter-spacing:.18em;}.ds-nav nav{display:flex;gap:4px;}.ds-nav nav a{padding:0 12px;min-height:44px;display:inline-flex;align-items:center;color:var(--color-ink-2);text-decoration:none;transition:color .2s;}.ds-nav nav a:hover{color:var(--color-ink);}.ds-nav nav a[aria-current=page]{color:var(--color-ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.5em;}.ds-lang{margin-inline-start:auto;color:var(--color-ink-2);text-decoration:none;}.ds-lang:hover{color:var(--color-ink);}.ds-holder{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 12px;border:1px solid var(--color-rule);color:var(--color-ink);text-decoration:none;}.ds-holder:hover{border-color:var(--color-ink);}.ds-holder span{background:var(--color-ink);color:var(--color-stock);padding:2px 6px;font-size:.7rem;font-weight:500;letter-spacing:.08em;}.ds-nav a:focus-visible{outline:2px solid var(--color-ink);outline-offset:3px;}"
+    },
+    {
+      "name": "Appointment Card",
+      "kind": "custom",
+      "refersTo": "appointment-card",
+      "description": "Numbered card issued after a viewing request, with tear-off stub and rotated stamp.",
+      "html": "<div class=\"ds-appt\"><div class=\"ds-appt-main\"><p class=\"ds-appt-title\">Appointment card</p><p class=\"ds-l\">Date</p><p>Sunday, 12 October</p></div><div class=\"ds-appt-stub\"><span class=\"ds-l\">Reference</span><span class=\"ds-ref\">VE-V-4821</span><span class=\"ds-stamp\">Requested</span></div></div>",
+      "css": ":host{--color-stock:#ffffff;--color-paper:#faf8f4;--color-sand:#ebe3d5;--color-sand-deep:#d9ccb6;--color-ink:#141312;--color-ink-2:#55504a;--color-ink-3:#655e55;--color-rule:#d9d1c3;--color-error:#9b2c1f;--ease-out:cubic-bezier(0.16,1,0.3,1);}.ds-appt{display:grid;grid-template-columns:1fr auto;background:var(--color-stock);box-shadow:0 1px 1px rgba(20,19,18,.05),0 8px 24px -10px rgba(20,19,18,.18);font-family:\"Hanken Grotesk\",system-ui,sans-serif;color:var(--color-ink);max-width:520px;}.ds-appt-main{padding:24px;}.ds-appt-main p{margin:0 0 4px;}.ds-appt-main .ds-appt-title{font:400 1.375rem/1.02 \"Bodoni Moda\",serif;margin-bottom:24px;}.ds-l{font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;color:var(--color-ink-2);font-weight:500;}.ds-appt-stub{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:24px 32px;background:var(--color-paper);border-inline-start:1.5px dashed var(--color-rule);}.ds-ref{font-size:1.05rem;font-weight:500;letter-spacing:.08em;font-variant-numeric:tabular-nums;}.ds-stamp{margin-top:8px;border:2px solid var(--color-ink);padding:2px 8px;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;transform:rotate(-4deg);}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Concierge Stationery Kit",
+    "overview": "VELORA is set as the printed kit a private agency's concierge desk hands across the counter: white card stock, black letterpress ink, sand-coloured paper fields, a blind-embossed V monogram, perforated tear lines and a serial number on every card. Listings are issued as keycards at credit-card proportion (1.586:1). Controls are printed form parts: underlined blanks in a sentence, hairline fields, ink-filled selections, a rotated rubber stamp. Nothing is a floating glass panel; every surface is a piece of paper lying on another piece of paper.\n\nThe system is quiet and dense with specifics. Colour is almost entirely achromatic warm neutrals; the only chroma is the sand of the paper fields and the error red. Hierarchy comes from a high-contrast engraved serif against a plain grotesque, from paper tone changes (stock, paper, sand, full ink) and from hairline rules, not from accent colour.\n\nThe build is bilingual and mirrors fully. English sets LTR in Bodoni Moda over Hanken Grotesk; Arabic sets RTL in Amiri over Readex Pro, swapped at the root by `html[dir=\"rtl\"]`. All geometry uses logical properties (start/end), so perforation notches, blank chevrons and select arrows flip with the script. Serials, phone numbers, times and references stay `dir=\"ltr\"` inside Arabic text.\n\nPhotography is AI-generated (Higgsfield; provenance in IMAGES.md): editorial architecture in warm sand and limestone tones, no people, no text. Property photos are cropped into 1.586:1 windows, city photos stand at 4:5. The photographic layer is recorded from code only; the finish review could not render it because the image CDN was unreachable from the build environment, so how the photos sit against the sand and paper fields is unverified.",
+    "keyCharacteristics": [
+      "White stock cards resting on paper or sand fields, with one soft paper shadow.",
+      "Keycard proportion (1.586:1) for every listing photograph and gallery frame.",
+      "Serial numbers (VE-RYD-0142 form) printed in tabular figures on every card.",
+      "Perforated tear lines with punched half-circle notches separating card from stub.",
+      "Form parts as print: underline blanks, 2px hairline fields, ink-filled selected state.",
+      "Full LTR/RTL parity with a separate font pair per script."
+    ],
+    "rules": [
+      {
+        "name": "The Paper Tone Rule",
+        "body": "Depth between regions is a change of paper (stock, paper, sand, ink), never a tinted accent. Adjacent sections alternate stock and paper; sand is reserved for fields that hold cards or forms.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tertiary Ink Rule",
+        "body": "Tertiary ink passes 4.5:1 only on stock (4.68:1). On paper it measures 4.42:1 and on sand 3.68:1; use secondary ink there.",
+        "section": "colors"
+      },
+      {
+        "name": "The Script Parity Rule",
+        "body": "Every Latin tracking or uppercase treatment has an Arabic override to zero tracking and a larger size; Arabic display gets line-height 1.35. Never ship a letter-spaced Arabic string.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Figures Rule",
+        "body": "Prices, areas, bed counts, times and serials use tabular lining figures (lining-nums are set on body).",
+        "section": "typography"
+      },
+      {
+        "name": "The One Sheet Rule",
+        "body": "A card is lifted exactly once, by the stock shadow. No nested shadows, no hover lift; hover is a photo scale (1.03 over 900ms) or a sand wash.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do put every listing photo in a 1.586:1 window inside a stock card, with the serial printed on it.",
+      "Do separate a card from its stub with the perforation, setting `--notch` to the field colour beneath.",
+      "Do express filters and requests as printed form parts: underline blanks in sentences, hairline fields with labels above, ink-filled selections.",
+      "Do change paper tone (stock, paper, sand, ink) to separate regions.",
+      "Do use `ease-out` (cubic-bezier(0.16, 1, 0.3, 1)) for rises, deals, stamps and photo scales, and honour reduced motion.",
+      "Do give every Latin typographic treatment an Arabic counterpart and mirror with logical properties.",
+      "Do label synthetic listings, agents and imagery as a demo wherever they appear."
+    ],
+    "donts": [
+      "Don't open a page with a full-bleed villa photo and a floating search bar over a card grid.",
+      "Don't add an accent colour; black, white and beige are the palette.",
+      "Don't put tertiary ink text on paper or sand, or set any text in deep sand.",
+      "Don't stack shadows or lift cards on hover; one sheet, one shadow.",
+      "Don't letter-space or uppercase Arabic.",
+      "Don't give agents portraits; they are calling cards."
+    ]
+  }
+}

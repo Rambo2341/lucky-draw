@@ -72,7 +72,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
           <ol className="grid gap-px bg-rule sm:grid-cols-3">
             {t.home.how.map((s, i) => (
               <li key={s.t} className="bg-stock p-6 sm:pt-10">
-                <span className="display text-[3rem] leading-none text-sand-deep" dir="ltr">
+                <span className="display text-[3rem] leading-none text-ink-3" dir="ltr">
                   {i + 1}
                 </span>
                 <h3 className="mt-6 text-[1.0625rem] font-semibold">{s.t}</h3>
